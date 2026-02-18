@@ -1,0 +1,2 @@
+add_executable(ekf_slam_demo ekf_slam_demo.cpp)
+target_link_libraries(ekf_slam_demo ekf_slam utils)
