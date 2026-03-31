@@ -25,6 +25,7 @@ public:
 
     Matrix transpose() const;
     Matrix inverse() const;
+    double det() const;
 
     Matrix operator+(const Matrix& other) const;
     Matrix operator-(const Matrix& other) const;

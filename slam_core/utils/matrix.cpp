@@ -113,6 +113,57 @@ Matrix Matrix::inverse() const {
     return inv;
 }
 
+// det() — general determinant via LU decomposition with partial pivoting.
+//
+// Performs in-place Gaussian elimination on a copy, tracking the sign
+// introduced by each row swap.  Product of the resulting diagonal entries
+// (the U factor) times the sign gives det(M).
+double Matrix::det() const {
+    if (rows_ != cols_) {
+        throw std::invalid_argument("Matrix must be square to compute determinant");
+    }
+
+    const size_t n = rows_;
+    // Work on a flat copy so we don't mutate *this
+    std::vector<double> a(data_);
+
+    auto at = [&](size_t r, size_t c) -> double& { return a[r * n + c]; };
+
+    double sign = 1.0;
+    for (size_t i = 0; i < n; ++i) {
+        // Partial pivot: find row with largest absolute value in column i
+        size_t pivot = i;
+        double max_val = std::abs(at(i, i));
+        for (size_t r = i + 1; r < n; ++r) {
+            if (std::abs(at(r, i)) > max_val) {
+                max_val = std::abs(at(r, i));
+                pivot = r;
+            }
+        }
+
+        if (max_val < 1e-300) return 0.0;   // singular
+
+        if (pivot != i) {
+            for (size_t c = 0; c < n; ++c)
+                std::swap(at(i, c), at(pivot, c));
+            sign = -sign;
+        }
+
+        double diag = at(i, i);
+        for (size_t r = i + 1; r < n; ++r) {
+            double factor = at(r, i) / diag;
+            for (size_t c = i; c < n; ++c)
+                at(r, c) -= factor * at(i, c);
+        }
+    }
+
+    // det = sign * product of diagonal (U factor)
+    double d = sign;
+    for (size_t i = 0; i < n; ++i)
+        d *= at(i, i);
+    return d;
+}
+
 Matrix Matrix::operator+(const Matrix& other) const {
     assert_same_shape(other);
     Matrix result(rows_, cols_, 0.0);

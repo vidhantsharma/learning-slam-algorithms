@@ -10,7 +10,7 @@ usage() {
 Usage: ./run_demo.sh [--algo ALGO] [--animate] [--show] [--steps N]
 
 Options:
-  --algo ALGO  Algorithm to run: ekf_slam | fast_slam | grid_slam  (default: ekf_slam)
+  --algo ALGO  Algorithm to run: ekf_slam | fast_slam | grid_slam | pose_graph_slam | hierarchical_pose_graph_slam | pose_graph_landmark_slam | robust_pose_graph_slam  (default: ekf_slam)
   --animate    Run animated visualization (default: static plot)
   --show       Show the plot window (default: save image only)
   --steps N    Number of timesteps in the demo (default: 250)
@@ -54,10 +54,10 @@ done
 
 # ── Validate --algo ──────────────────────────────────────────────────────────
 case "$ALGO" in
-  ekf_slam|fast_slam|grid_slam)
+  ekf_slam|fast_slam|grid_slam|pose_graph_slam|hierarchical_pose_graph_slam|pose_graph_landmark_slam|robust_pose_graph_slam)
     ;;
   *)
-    echo "Error: unknown algorithm '$ALGO'. Choose ekf_slam, fast_slam, or grid_slam."
+    echo "Error: unknown algorithm '$ALGO'. Choose ekf_slam, fast_slam, grid_slam, pose_graph_slam, hierarchical_pose_graph_slam, pose_graph_landmark_slam, or robust_pose_graph_slam."
     usage
     exit 1
     ;;

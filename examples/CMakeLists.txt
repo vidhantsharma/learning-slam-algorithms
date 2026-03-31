@@ -6,3 +6,15 @@ target_link_libraries(fast_slam_demo fast_slam utils)
 
 add_executable(grid_slam_demo grid_slam_demo.cpp)
 target_link_libraries(grid_slam_demo grid_slam utils)
+
+add_executable(pose_graph_slam_demo pose_graph_slam_demo.cpp)
+target_link_libraries(pose_graph_slam_demo pose_graph_slam utils)
+
+add_executable(hierarchical_pose_graph_slam_demo hierarchical_pose_graph_slam_demo.cpp)
+target_link_libraries(hierarchical_pose_graph_slam_demo hierarchical_pose_graph_slam utils)
+
+add_executable(pose_graph_landmark_slam_demo pose_graph_landmark_slam_demo.cpp)
+target_link_libraries(pose_graph_landmark_slam_demo pose_graph_landmark_slam utils)
+
+add_executable(robust_pose_graph_slam_demo robust_pose_graph_slam_demo.cpp)
+target_link_libraries(robust_pose_graph_slam_demo robust_pose_graph_slam utils)
